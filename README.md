@@ -1,1 +1,1 @@
-# Yahooo-another-to-do-list-app-
+A lean to-do list application for Android! 
