@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notes Activity !-->
+    <string name="Not_Saved_Title">Note not saved</string>
+    <string name ="Not_Saved_Content">Pressing back here will cause you to lose changes made to your note. Are you sure you want to back?</string>
+    <string name="Not_Saved_Positive">Yes</string>
+    <string name ="Not_Saved_Negative">No</string>
+</resources>
