@@ -6,6 +6,7 @@ public class NotesPresenterImpl implements  NotesPresenter {
     NotesView view;
 
     boolean fabOpen = false;
+    boolean paintButtonsOpen = false;
     boolean textEdited = false;
 
     public NotesPresenterImpl(NotesView view) {
@@ -20,18 +21,45 @@ public class NotesPresenterImpl implements  NotesPresenter {
     public void animateFab() {
         if (fabOpen) {
             view.closeFab();
+            view.changeSubFabEnabledStatus(false);
             fabOpen = false;
         }
         else {
             view.openFab();
+            view.changeSubFabEnabledStatus(true);
             fabOpen = true;
         }
     }
+
     //unlike animate fab this is called for any click on the screen.
     public void closeFab() {
         if(fabOpen) {
             view.closeFab();
+            view.changeSubFabEnabledStatus(false);
             fabOpen = false;
+        }
+    }
+
+
+    public void animatePaintButtons() {
+        if(paintButtonsOpen) {
+            view.closePaintButtons();
+            view.changePaintButtonsEnabledStatus(false);
+            paintButtonsOpen = false;
+
+        }
+        else {
+            view.openPaintButtons();
+            view.changePaintButtonsEnabledStatus(true);
+            paintButtonsOpen = true;
+        }
+    }
+
+    public void closePaintButtons() {
+        if(paintButtonsOpen) {
+            view.closePaintButtons();
+            view.changePaintButtonsEnabledStatus(false);
+            paintButtonsOpen = false;
         }
     }
 

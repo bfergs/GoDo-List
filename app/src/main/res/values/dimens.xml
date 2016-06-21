@@ -5,4 +5,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name ="fab_elevation">6dp</dimen>
     <dimen name = "fab_translationZ">12dp</dimen>
+    <dimen name ="paint_buttons_radius">100dp</dimen>
+    <dimen name ="paint_button_width">50dp</dimen>
+    <dimen name="paint_button_height">50dp</dimen>
+    <dimen name ="paint_button_stroke_width">1dp</dimen>
+
+    <dimen name ="paint_button_vertical_margin">16dp</dimen>
+    <dimen name="paint_button_horizontal_margin">16dp</dimen>
 </resources>

@@ -3,7 +3,18 @@
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#0288D1</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name ="fabColorPicker">#FF4336</color>
     <color name ="fabDone">#4CAF50</color>
     <color name ="fabDatePicker">#2196F3</color>
+
+    <color name ="paint_button_red">#F44336</color>
+    <color name ="paint_button_purple">#9C27B0</color>
+    <color name ="paint_button_blue">#2196F3</color>
+    <color name ="paint_button_green">#4CAF50</color>
+    <color name ="paint_button_yellow">#FFEB3B</color>
+    <color name ="paint_button_orange">#FF9800</color>
+    <color name ="paint_button_brown">#795548</color>
+    <color name ="paint_button_white">#FFFFFF</color>
+    <color name ="paint_button_stroke_color">#878787</color>
 </resources>

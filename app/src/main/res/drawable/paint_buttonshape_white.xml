@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <corners
+        android:radius="@dimen/paint_buttons_radius"
+        />
+    <solid
+        android:color="@color/paint_button_white"
+        />
+    <size
+        android:width="@dimen/paint_button_width"
+        android:height="@dimen/paint_button_height"
+        />
+    <stroke
+        android:width="@dimen/paint_button_stroke_width"
+        android:color="@color/paint_button_stroke_color"        />
+</shape>

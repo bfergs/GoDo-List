@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -50,6 +51,31 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     @Bind(R.id.descriptionEditText)
     EditText noteDescription;
 
+    @Bind(R.id.red_paint_button)
+    Button redPaintButton;
+
+    @Bind(R.id.purple_paint_button)
+    Button purplePaintButton;
+
+    @Bind(R.id.blue_paint_button)
+    Button bluePaintButton;
+
+    @Bind(R.id.green_paint_button)
+    Button greenPaintButton;
+
+    @Bind(R.id.yellow_paint_button)
+    Button yellowPaintButton;
+
+    @Bind(R.id.orange_paint_button)
+    Button orangePaintButton;
+
+    @Bind(R.id.brown_paint_button)
+    Button brownPaintButton;
+
+    @Bind(R.id.white_paint_button)
+    Button whitePaintButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +100,7 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         presenter.closeFab();
+        presenter.closePaintButtons();
         return true;
     }
 
@@ -83,9 +110,10 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         switch(id) {
             case R.id.fab:
                 presenter.animateFab();
+                presenter.closePaintButtons();
                 break;
             case R.id.fabColorPicker:
-                Snackbar.make(v, "color", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                presenter.animatePaintButtons();
                 presenter.closeFab();
                 break;
             case R.id.fabDatePicker:
@@ -103,21 +131,72 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     public void openFab() {
         Animation fabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         Animation rotateForward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_rotate_forward);
-        fab.startAnimation(rotateForward);
-        fabColorPicker.startAnimation(fabOpen);
-        fabDatePicker.startAnimation(fabOpen);
-        fabDone.startAnimation(fabOpen);
+
+        startFabAnimations(rotateForward, fab);
+        startFabAnimations(fabOpen, fabColorPicker);
+        startFabAnimations(fabOpen, fabDatePicker);
+        startFabAnimations(fabOpen, fabDone);
     }
 
     public void closeFab() {
         Animation fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        Animation rotateBack = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_rotate_back);
+        Animation rotateBack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_back);
 
-        fab.startAnimation(rotateBack);
-        fabColorPicker.startAnimation(fabClose);
-        fabDatePicker.startAnimation(fabClose);
-        fabDone.startAnimation(fabClose);
+        startFabAnimations(rotateBack, fab);
+        startFabAnimations(fabClose, fabColorPicker);
+        startFabAnimations(fabClose, fabDatePicker);
+        startFabAnimations(fabClose, fabDone);
+    }
 
+
+    public void changeSubFabEnabledStatus(Boolean status) {
+        fabColorPicker.setEnabled(status);
+        fabDatePicker.setEnabled(status);
+        fabDone.setEnabled(status);
+    }
+
+   public void changePaintButtonsEnabledStatus(Boolean status) {
+       redPaintButton.setEnabled(status);
+       bluePaintButton.setEnabled(status);
+       purplePaintButton.setEnabled(status);
+       greenPaintButton.setEnabled(status);
+       brownPaintButton.setEnabled(status);
+       orangePaintButton.setEnabled(status);
+       whitePaintButton.setEnabled(status);
+       yellowPaintButton.setEnabled(status);
+   }
+
+    public void openPaintButtons() {
+        Animation paintOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.paint_buttons_open);
+        startPaintButtonAnimations(paintOpen, redPaintButton);
+        startPaintButtonAnimations(paintOpen, bluePaintButton);
+        startPaintButtonAnimations(paintOpen, greenPaintButton);
+        startPaintButtonAnimations(paintOpen, brownPaintButton);
+        startPaintButtonAnimations(paintOpen, orangePaintButton);
+        startPaintButtonAnimations(paintOpen, purplePaintButton);
+        startPaintButtonAnimations(paintOpen, whitePaintButton);
+        startPaintButtonAnimations(paintOpen, yellowPaintButton);
+    }
+
+    public void closePaintButtons() {
+        Animation paintClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.paint_buttons_close);
+        startPaintButtonAnimations(paintClose, redPaintButton);
+        startPaintButtonAnimations(paintClose, bluePaintButton);
+        startPaintButtonAnimations(paintClose, greenPaintButton);
+        startPaintButtonAnimations(paintClose, brownPaintButton);
+        startPaintButtonAnimations(paintClose, orangePaintButton);
+        startPaintButtonAnimations(paintClose, purplePaintButton);
+        startPaintButtonAnimations(paintClose, whitePaintButton);
+        startPaintButtonAnimations(paintClose, yellowPaintButton);
+
+    }
+
+    private void startPaintButtonAnimations(Animation anim, Button bt) {
+        bt.startAnimation(anim);
+    }
+
+    private void startFabAnimations(Animation anim, FloatingActionButton fab) {
+        fab.startAnimation(anim);
     }
     public void setOnClickListeners() {
         fab.setOnClickListener(this);
@@ -141,6 +220,7 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 presenter.closeFab();
+                presenter.closePaintButtons();
             }
 
             @Override

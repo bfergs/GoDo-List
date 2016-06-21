@@ -8,5 +8,8 @@ public interface NotesView {
     void setOnClickListeners();
     void displayNoteNotSavedAlert();
     void endActivity();
-
+    void openPaintButtons();
+    void closePaintButtons();
+    void changeSubFabEnabledStatus(Boolean status);
+    void changePaintButtonsEnabledStatus(Boolean status);
 }
