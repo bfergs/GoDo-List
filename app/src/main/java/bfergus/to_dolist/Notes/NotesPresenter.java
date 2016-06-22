@@ -10,5 +10,6 @@ public interface NotesPresenter {
     void finish();
     void animatePaintButtons();
     void closePaintButtons();
+    void changeEditTextColor(int color);
 
 }

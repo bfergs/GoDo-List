@@ -1,10 +1,13 @@
 package bfergus.to_dolist.Notes;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -124,9 +127,47 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
                 Snackbar.make(v, "done", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 presenter.closeFab();
                 break;
+            case R.id.red_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_red));
+                presenter.closePaintButtons();
+                break;
+            case R.id.blue_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_blue));
+                presenter.closePaintButtons();
+                break;
+            case R.id.yellow_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_yellow));
+                presenter.closePaintButtons();
+                break;
+            case R.id.purple_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_purple));
+                presenter.closePaintButtons();
+                break;
+            case R.id.green_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_green));
+                presenter.closePaintButtons();
+                break;
+            case R.id.orange_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_orange));
+                presenter.closePaintButtons();
+                break;
+            case R.id.brown_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_brown));
+                presenter.closePaintButtons();
+                break;
+            case R.id.white_paint_button:
+                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_white));
+                presenter.closePaintButtons();
+                break;
         }
     }
 
+    public void changeEditTextColor(int color) {
+        View root = fab.getRootView();
+        System.out.println(color);
+        root.setBackgroundColor(color);
+
+    }
 
     public void openFab() {
         Animation fabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
@@ -203,6 +244,14 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         fabColorPicker.setOnClickListener(this);
         fabDatePicker.setOnClickListener(this);
         fabDone.setOnClickListener(this);
+        redPaintButton.setOnClickListener(this);
+        bluePaintButton.setOnClickListener(this);
+        greenPaintButton.setOnClickListener(this);
+        brownPaintButton.setOnClickListener(this);
+        orangePaintButton.setOnClickListener(this);
+        purplePaintButton.setOnClickListener(this);
+        whitePaintButton.setOnClickListener(this);
+        yellowPaintButton.setOnClickListener(this);
     }
 
     public void handleEditTexts() {
@@ -254,9 +303,5 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
             }
         });
         notesNotSavedDialog.show();
-
     }
-
-
-
 }

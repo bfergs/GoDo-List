@@ -78,4 +78,8 @@ public class NotesPresenterImpl implements  NotesPresenter {
     public void finish() {
         view.endActivity();
     }
+
+    public void changeEditTextColor(int color) {
+        view.changeEditTextColor(color);
+    }
 }

@@ -17,4 +17,13 @@
     <color name ="paint_button_brown">#795548</color>
     <color name ="paint_button_white">#FFFFFF</color>
     <color name ="paint_button_stroke_color">#878787</color>
+
+    <color name ="edit_text_red">#F44336</color>
+    <color name ="edit_text_purple">#9C27B0</color>
+    <color name ="edit_text_blue">#2196F3</color>
+    <color name ="edit_text_green">#4CAF50</color>
+    <color name ="edit_text_yellow">#FFEB3B</color>
+    <color name ="edit_text_orange">#FF9800</color>
+    <color name ="edit_text_brown">#795548</color>
+    <color name ="edit_text_white">#FFFFFF</color>
 </resources>

@@ -12,4 +12,5 @@ public interface NotesView {
     void closePaintButtons();
     void changeSubFabEnabledStatus(Boolean status);
     void changePaintButtonsEnabledStatus(Boolean status);
+    void changeEditTextColor(int color);
 }
