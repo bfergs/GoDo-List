@@ -1,15 +1,17 @@
 package bfergus.to_dolist.Notes;
 
 
+import bfergus.to_dolist.Enums.PaintColor;
+
 public interface NotesPresenter {
     void animateFab();
     void closeFab();
     void textHasBeenEdited();
     void onCreate();
     void onBackPressed();
-    void finish();
     void animatePaintButtons();
     void closePaintButtons();
-    void changeEditTextColor(int color);
+    void changeBackgroundColor(PaintColor color);
+    int getCurrentColor();
 
 }

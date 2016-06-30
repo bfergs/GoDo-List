@@ -1,6 +1,9 @@
 package bfergus.to_dolist.Notes;
 
 
+import bfergus.to_dolist.Enums.PaintColor;
+import bfergus.to_dolist.Utils.ConvertPaintColors;
+
 public class NotesPresenterImpl implements  NotesPresenter {
 
     NotesView view;
@@ -8,6 +11,8 @@ public class NotesPresenterImpl implements  NotesPresenter {
     boolean fabOpen = false;
     boolean paintButtonsOpen = false;
     boolean textEdited = false;
+
+    PaintColor currentBackgroundColor = PaintColor.WHITE;
 
     public NotesPresenterImpl(NotesView view) {
         this.view = view;
@@ -75,11 +80,15 @@ public class NotesPresenterImpl implements  NotesPresenter {
         else view.endActivity();
     }
 
-    public void finish() {
-        view.endActivity();
+    public void changeBackgroundColor(PaintColor color) {
+        view.changeBackgroundColor(ConvertPaintColors.getIntValueFromPaintColor(color));
+        saveColor(color);
+    }
+    private void saveColor(PaintColor color) {
+        currentBackgroundColor = color;
     }
 
-    public void changeEditTextColor(int color) {
-        view.changeEditTextColor(color);
+    public int getCurrentColor() {
+        return ConvertPaintColors.getIntValueFromPaintColor(currentBackgroundColor);
     }
 }

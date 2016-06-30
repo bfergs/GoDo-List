@@ -1,13 +1,10 @@
 package bfergus.to_dolist.Notes;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -23,7 +20,9 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import bfergus.to_dolist.Enums.PaintColor;
 import bfergus.to_dolist.R;
+import bfergus.to_dolist.Utils.ConvertPaintColors;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -88,12 +87,21 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         presenter = new NotesPresenterImpl(this);
         presenter.onCreate();
         setSupportActionBar(toolbar);
+        if(savedInstanceState!= null) {
+            presenter.changeBackgroundColor(ConvertPaintColors.getPaintColorFromIntValue(savedInstanceState.getInt("currentColor")));
+        }
     }
 
     @Override
     public void onBackPressed() {
         if(notesNotSavedDialog == null || !notesNotSavedDialog.isShowing()) presenter.onBackPressed();
-        else presenter.finish();
+        else finish();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putInt("currentColor",presenter.getCurrentColor());
     }
 
     public void endActivity() {
@@ -128,41 +136,41 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
                 presenter.closeFab();
                 break;
             case R.id.red_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_red));
+                presenter.changeBackgroundColor(PaintColor.RED);
                 presenter.closePaintButtons();
                 break;
             case R.id.blue_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_blue));
+                presenter.changeBackgroundColor(PaintColor.BLUE);
                 presenter.closePaintButtons();
                 break;
             case R.id.yellow_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_yellow));
+                presenter.changeBackgroundColor(PaintColor.YELLOW);
                 presenter.closePaintButtons();
                 break;
             case R.id.purple_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_purple));
+                presenter.changeBackgroundColor(PaintColor.PURPLE);
                 presenter.closePaintButtons();
                 break;
             case R.id.green_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_green));
+                presenter.changeBackgroundColor(PaintColor.GREEN);
                 presenter.closePaintButtons();
                 break;
             case R.id.orange_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_orange));
+                presenter.changeBackgroundColor(PaintColor.ORANGE);
                 presenter.closePaintButtons();
                 break;
             case R.id.brown_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_brown));
+                presenter.changeBackgroundColor(PaintColor.BROWN);
                 presenter.closePaintButtons();
                 break;
             case R.id.white_paint_button:
-                presenter.changeEditTextColor(ContextCompat.getColor(this,R.color.edit_text_white));
+                presenter.changeBackgroundColor(PaintColor.WHITE);
                 presenter.closePaintButtons();
                 break;
         }
     }
 
-    public void changeEditTextColor(int color) {
+    public void changeBackgroundColor(int color) {
         View root = fab.getRootView();
         System.out.println(color);
         root.setBackgroundColor(color);
@@ -288,7 +296,7 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        presenter.finish();
+                        finish();
                     }
                 })
                 .build();
