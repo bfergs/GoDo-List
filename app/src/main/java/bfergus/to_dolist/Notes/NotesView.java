@@ -4,10 +4,10 @@ public interface NotesView {
 
     void openFab();
     void closeFab();
-    void handleEditTexts();
-    void setOnClickListeners();
-    void displayNoteNotSavedAlert();
-    void endActivity();
+    void initializeEditTexts();
+    void initializeClickListeners();
+    void displayNoteNotSavedMessage();
+    void endActivity(boolean noteEdited);
     void openPaintButtons();
     void closePaintButtons();
     void changeSubFabEnabledStatus(Boolean status);

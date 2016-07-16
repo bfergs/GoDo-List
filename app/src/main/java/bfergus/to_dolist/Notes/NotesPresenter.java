@@ -1,7 +1,7 @@
 package bfergus.to_dolist.Notes;
 
 
-import bfergus.to_dolist.Enums.PaintColor;
+import bfergus.to_dolist.Enums.NoteColor;
 
 public interface NotesPresenter {
     void animateFab();
@@ -11,7 +11,7 @@ public interface NotesPresenter {
     void onBackPressed();
     void animatePaintButtons();
     void closePaintButtons();
-    void changeBackgroundColor(PaintColor color);
+    void changeNoteColor(NoteColor color);
     int getCurrentColor();
 
 }

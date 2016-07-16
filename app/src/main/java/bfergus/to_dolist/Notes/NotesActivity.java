@@ -1,36 +1,30 @@
 package bfergus.to_dolist.Notes;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
-import bfergus.to_dolist.Enums.PaintColor;
+import bfergus.to_dolist.Enums.NoteColor;
 import bfergus.to_dolist.R;
-import bfergus.to_dolist.Utils.ConvertPaintColors;
+import bfergus.to_dolist.Utils.ConvertNoteColors;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
 public class NotesActivity extends AppCompatActivity  implements NotesView, View.OnClickListener{
     NotesPresenter presenter;
-
-    MaterialDialog notesNotSavedDialog;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -53,29 +47,29 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     @Bind(R.id.descriptionEditText)
     EditText noteDescription;
 
-    @Bind(R.id.red_paint_button)
-    Button redPaintButton;
+    @Bind(R.id.red_color_button)
+    Button redColorButton;
 
-    @Bind(R.id.purple_paint_button)
-    Button purplePaintButton;
+    @Bind(R.id.purple_color_button)
+    Button purpleColorButton;
 
-    @Bind(R.id.blue_paint_button)
-    Button bluePaintButton;
+    @Bind(R.id.blue_color_button)
+    Button blueColorButton;
 
-    @Bind(R.id.green_paint_button)
-    Button greenPaintButton;
+    @Bind(R.id.green_color_button)
+    Button greenColorButton;
 
-    @Bind(R.id.yellow_paint_button)
-    Button yellowPaintButton;
+    @Bind(R.id.yellow_color_button)
+    Button yellowColorButton;
 
-    @Bind(R.id.orange_paint_button)
-    Button orangePaintButton;
+    @Bind(R.id.orange_color_button)
+    Button orangeColorButton;
 
-    @Bind(R.id.brown_paint_button)
-    Button brownPaintButton;
+    @Bind(R.id.brown_color_button)
+    Button brownColorButton;
 
-    @Bind(R.id.white_paint_button)
-    Button whitePaintButton;
+    @Bind(R.id.white_color_button)
+    Button whiteColorButton;
 
 
 
@@ -88,14 +82,13 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         presenter.onCreate();
         setSupportActionBar(toolbar);
         if(savedInstanceState!= null) {
-            presenter.changeBackgroundColor(ConvertPaintColors.getPaintColorFromIntValue(savedInstanceState.getInt("currentColor")));
+            presenter.changeNoteColor(ConvertNoteColors.intValueToNoteColor(savedInstanceState.getInt("currentColor")));
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(notesNotSavedDialog == null || !notesNotSavedDialog.isShowing()) presenter.onBackPressed();
-        else finish();
+        presenter.onBackPressed();
     }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -104,7 +97,7 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         savedInstanceState.putInt("currentColor",presenter.getCurrentColor());
     }
 
-    public void endActivity() {
+    public void endActivity(boolean noteEdited) {
         finish();
     }
 
@@ -128,43 +121,43 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
                 presenter.closeFab();
                 break;
             case R.id.fabDatePicker:
-                Snackbar.make(v, "date", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                startActivity(new Intent(this, SchedulingActivity.class));
                 presenter.closeFab();
                 break;
             case R.id.fabDone:
                 Snackbar.make(v, "done", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 presenter.closeFab();
                 break;
-            case R.id.red_paint_button:
-                presenter.changeBackgroundColor(PaintColor.RED);
+            case R.id.red_color_button:
+                presenter.changeNoteColor(NoteColor.RED);
                 presenter.closePaintButtons();
                 break;
-            case R.id.blue_paint_button:
-                presenter.changeBackgroundColor(PaintColor.BLUE);
+            case R.id.blue_color_button:
+                presenter.changeNoteColor(NoteColor.BLUE);
                 presenter.closePaintButtons();
                 break;
-            case R.id.yellow_paint_button:
-                presenter.changeBackgroundColor(PaintColor.YELLOW);
+            case R.id.yellow_color_button:
+                presenter.changeNoteColor(NoteColor.YELLOW);
                 presenter.closePaintButtons();
                 break;
-            case R.id.purple_paint_button:
-                presenter.changeBackgroundColor(PaintColor.PURPLE);
+            case R.id.purple_color_button:
+                presenter.changeNoteColor(NoteColor.PURPLE);
                 presenter.closePaintButtons();
                 break;
-            case R.id.green_paint_button:
-                presenter.changeBackgroundColor(PaintColor.GREEN);
+            case R.id.green_color_button:
+                presenter.changeNoteColor(NoteColor.GREEN);
                 presenter.closePaintButtons();
                 break;
-            case R.id.orange_paint_button:
-                presenter.changeBackgroundColor(PaintColor.ORANGE);
+            case R.id.orange_color_button:
+                presenter.changeNoteColor(NoteColor.ORANGE);
                 presenter.closePaintButtons();
                 break;
-            case R.id.brown_paint_button:
-                presenter.changeBackgroundColor(PaintColor.BROWN);
+            case R.id.brown_color_button:
+                presenter.changeNoteColor(NoteColor.BROWN);
                 presenter.closePaintButtons();
                 break;
-            case R.id.white_paint_button:
-                presenter.changeBackgroundColor(PaintColor.WHITE);
+            case R.id.white_color_button:
+                presenter.changeNoteColor(NoteColor.WHITE);
                 presenter.closePaintButtons();
                 break;
         }
@@ -205,38 +198,38 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     }
 
    public void changePaintButtonsEnabledStatus(Boolean status) {
-       redPaintButton.setEnabled(status);
-       bluePaintButton.setEnabled(status);
-       purplePaintButton.setEnabled(status);
-       greenPaintButton.setEnabled(status);
-       brownPaintButton.setEnabled(status);
-       orangePaintButton.setEnabled(status);
-       whitePaintButton.setEnabled(status);
-       yellowPaintButton.setEnabled(status);
+       redColorButton.setEnabled(status);
+       blueColorButton.setEnabled(status);
+       purpleColorButton.setEnabled(status);
+       greenColorButton.setEnabled(status);
+       brownColorButton.setEnabled(status);
+       orangeColorButton.setEnabled(status);
+       whiteColorButton.setEnabled(status);
+       yellowColorButton.setEnabled(status);
    }
 
     public void openPaintButtons() {
         Animation paintOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.paint_buttons_open);
-        startPaintButtonAnimations(paintOpen, redPaintButton);
-        startPaintButtonAnimations(paintOpen, bluePaintButton);
-        startPaintButtonAnimations(paintOpen, greenPaintButton);
-        startPaintButtonAnimations(paintOpen, brownPaintButton);
-        startPaintButtonAnimations(paintOpen, orangePaintButton);
-        startPaintButtonAnimations(paintOpen, purplePaintButton);
-        startPaintButtonAnimations(paintOpen, whitePaintButton);
-        startPaintButtonAnimations(paintOpen, yellowPaintButton);
+        startPaintButtonAnimations(paintOpen, redColorButton);
+        startPaintButtonAnimations(paintOpen, blueColorButton);
+        startPaintButtonAnimations(paintOpen, greenColorButton);
+        startPaintButtonAnimations(paintOpen, brownColorButton);
+        startPaintButtonAnimations(paintOpen, orangeColorButton);
+        startPaintButtonAnimations(paintOpen, purpleColorButton);
+        startPaintButtonAnimations(paintOpen, whiteColorButton);
+        startPaintButtonAnimations(paintOpen, yellowColorButton);
     }
 
     public void closePaintButtons() {
         Animation paintClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.paint_buttons_close);
-        startPaintButtonAnimations(paintClose, redPaintButton);
-        startPaintButtonAnimations(paintClose, bluePaintButton);
-        startPaintButtonAnimations(paintClose, greenPaintButton);
-        startPaintButtonAnimations(paintClose, brownPaintButton);
-        startPaintButtonAnimations(paintClose, orangePaintButton);
-        startPaintButtonAnimations(paintClose, purplePaintButton);
-        startPaintButtonAnimations(paintClose, whitePaintButton);
-        startPaintButtonAnimations(paintClose, yellowPaintButton);
+        startPaintButtonAnimations(paintClose, redColorButton);
+        startPaintButtonAnimations(paintClose, blueColorButton);
+        startPaintButtonAnimations(paintClose, greenColorButton);
+        startPaintButtonAnimations(paintClose, brownColorButton);
+        startPaintButtonAnimations(paintClose, orangeColorButton);
+        startPaintButtonAnimations(paintClose, purpleColorButton);
+        startPaintButtonAnimations(paintClose, whiteColorButton);
+        startPaintButtonAnimations(paintClose, yellowColorButton);
 
     }
 
@@ -247,25 +240,27 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
     private void startFabAnimations(Animation anim, FloatingActionButton fab) {
         fab.startAnimation(anim);
     }
-    public void setOnClickListeners() {
+    public void initializeClickListeners() {
         fab.setOnClickListener(this);
         fabColorPicker.setOnClickListener(this);
         fabDatePicker.setOnClickListener(this);
         fabDone.setOnClickListener(this);
-        redPaintButton.setOnClickListener(this);
-        bluePaintButton.setOnClickListener(this);
-        greenPaintButton.setOnClickListener(this);
-        brownPaintButton.setOnClickListener(this);
-        orangePaintButton.setOnClickListener(this);
-        purplePaintButton.setOnClickListener(this);
-        whitePaintButton.setOnClickListener(this);
-        yellowPaintButton.setOnClickListener(this);
+        redColorButton.setOnClickListener(this);
+        blueColorButton.setOnClickListener(this);
+        greenColorButton.setOnClickListener(this);
+        brownColorButton.setOnClickListener(this);
+        orangeColorButton.setOnClickListener(this);
+        purpleColorButton.setOnClickListener(this);
+        whiteColorButton.setOnClickListener(this);
+        yellowColorButton.setOnClickListener(this);
     }
 
-    public void handleEditTexts() {
+    public void initializeEditTexts() {
         setTextWatchers(noteTitle);
         setTextWatchers(noteDescription);
     }
+
+
 
     private void setTextWatchers(EditText et) {
         et.addTextChangedListener(new TextWatcher() {
@@ -287,29 +282,8 @@ public class NotesActivity extends AppCompatActivity  implements NotesView, View
         });
     }
 
-    public void displayNoteNotSavedAlert() {
-        notesNotSavedDialog = new MaterialDialog.Builder(this)
-                .title(getString(R.string.Not_Saved_Title))
-                .content(getString(R.string.Not_Saved_Content))
-                .positiveText(getString(R.string.Not_Saved_Positive))
-                .negativeText(getString(R.string.Not_Saved_Negative))
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        finish();
-                    }
-                })
-                .build();
-        notesNotSavedDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_BACK) {
-                    notesNotSavedDialog.dismiss();
-                    finish();
-                }
-                return true;
-            }
-        });
-        notesNotSavedDialog.show();
+    public void displayNoteNotSavedMessage() {
+        Toast toast = Toast.makeText(this, getText(R.string.Not_Saved), Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

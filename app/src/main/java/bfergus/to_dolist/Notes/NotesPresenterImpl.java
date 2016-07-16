@@ -1,8 +1,10 @@
 package bfergus.to_dolist.Notes;
 
 
-import bfergus.to_dolist.Enums.PaintColor;
-import bfergus.to_dolist.Utils.ConvertPaintColors;
+import bfergus.to_dolist.Enums.NoteColor;
+import bfergus.to_dolist.Utils.ConvertNoteColors;
+import bfergus.to_dolist.Controllers.Events.NoteColorSelectEvent;
+import bfergus.to_dolist.Controllers.Events.NoteEditedEvent;
 
 public class NotesPresenterImpl implements  NotesPresenter {
 
@@ -10,17 +12,22 @@ public class NotesPresenterImpl implements  NotesPresenter {
 
     boolean fabOpen = false;
     boolean paintButtonsOpen = false;
-    boolean textEdited = false;
 
-    PaintColor currentBackgroundColor = PaintColor.WHITE;
+    private NoteEditedEvent mNoteEditedEvent = new NoteEditedEvent(false);
+
+    private NoteColorSelectEvent mNoteColorSelectEvent = new NoteColorSelectEvent(NoteColor.WHITE);
 
     public NotesPresenterImpl(NotesView view) {
         this.view = view;
     }
 
     public void onCreate() {
-        view.setOnClickListeners();
-        view.handleEditTexts();
+     intializeViews();
+    }
+
+    private void intializeViews() {
+        view.initializeClickListeners();
+        view.initializeEditTexts();
     }
 
     public void animateFab() {
@@ -68,27 +75,26 @@ public class NotesPresenterImpl implements  NotesPresenter {
         }
     }
 
-    //used to display an alert dialog that will show when a note isn't saved.
     public void textHasBeenEdited() {
-        textEdited = true;
+        mNoteEditedEvent = new NoteEditedEvent(true);
     }
 
     public void onBackPressed() {
-        if(textEdited){
-            view.displayNoteNotSavedAlert();
+        if(!mNoteEditedEvent.getStatus()){
+            view.displayNoteNotSavedMessage();
         }
-        else view.endActivity();
+        view.endActivity(mNoteEditedEvent.getStatus());
     }
 
-    public void changeBackgroundColor(PaintColor color) {
-        view.changeBackgroundColor(ConvertPaintColors.getIntValueFromPaintColor(color));
-        saveColor(color);
+    public void changeNoteColor(NoteColor color) {
+        view.changeBackgroundColor(ConvertNoteColors.noteColorToIntValue(color));
+        saveNoteColor(color);
     }
-    private void saveColor(PaintColor color) {
-        currentBackgroundColor = color;
+    private void saveNoteColor(NoteColor color) {
+        mNoteColorSelectEvent = new NoteColorSelectEvent(color);
     }
 
     public int getCurrentColor() {
-        return ConvertPaintColors.getIntValueFromPaintColor(currentBackgroundColor);
+        return ConvertNoteColors.noteColorToIntValue(mNoteColorSelectEvent.getSeletedNoteColor());
     }
 }
